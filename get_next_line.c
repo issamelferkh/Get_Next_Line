@@ -1,6 +1,15 @@
 #include "../libft/libft.h"
 #include "get_next_line.h"
 
+void	ft_listnew(int	fd, char *content_rest, t_file **content)
+{
+
+ 	(*content)->fd = fd;
+ 	(*content)->content_rest = ft_strnew(ft_strlen(content_rest));
+ 	(*content)->content_rest = ft_strcpy((*content)->content_rest, content_rest);
+ 	(*content)->next = NULL;
+}
+
 static	unsigned	int		ft_line_len(char *tab)
 {
 	unsigned int			i;
@@ -29,8 +38,11 @@ char					*ft_line_get(char *tab)
 	return (NULL);
 }
 
-static char					*ft_line_rest(char *tab)
+char					*ft_line_rest(char *tab)
 {
+	//char *tmp;
+
+	//tmp = (char *)malloc(sizeof(tab) * ft_strlen(tab));
 	if (ft_strchr(tab, '\n') != NULL)
 	{
 		ft_strcpy(tab, ft_strchr(tab, '\n') + 1); // +1 pour (pas cpy)eviter \n 
@@ -44,69 +56,34 @@ static char					*ft_line_rest(char *tab)
 	return (NULL);
 }
 
-/*int							get_next_line(int const fd, char **line)
-{
-	char					*tmp;
-	char					buff[BUFF_SIZE + 1];
-	static	char			tab; // *tab[256]
-	int						ret;
 
-	if (fd < 0 || BUFF_SIZE < 1 || !line || read(fd, buff, 0) < 0)
-		return (-1);
-	if (!(tab[fd]) && (tab[fd] = ft_strnew(0)) == NULL)
-		return (-1);
-	while (!(ft_strchr(tab[fd], '\n')) && (ret = read(fd, buff, BUFF_SIZE)) > 0)
-	{
-		buff[ret] = '\0';
-		tmp = tab[fd];
-		tab[fd] = ft_strnjoin(tmp, buff, ret);
-		free(tmp);
-	}
-	*line = ft_strsub(tab[fd], 0, ft_linelen(tab[fd]));
-	if (ft_line(tab[fd]) == NULL)
-		return (0);
-	return (1);
-}*/
+void						get_next_line(int const fd, char **line) // is int not void + **line
+{
+	t_file *content;
+
+	content= (t_file*)malloc(sizeof(t_file));
+	//check nmalloc error 
+	ft_listnew(fd, ft_line_rest(ft_strdup(*line)),&content);
+	printf("fd %d:\n",content->fd);
+	printf("line get %s:\n",content->content_rest);
+
+
+}
 
 int		main(int ac, char **av)
 {
-	int		len;
 	int 	fd;
-	int 	i;
-	int 	ret;
-	char	tab[BUFF_SIZE];
+	char	*tab;
 
+	tab = (char*)malloc(sizeof(char) * BUFF_SIZE + 1);
+	tab[BUFF_SIZE] = '\0';
 	if (ac == 2)
 	{
-		/*
-		
-		printf("ft_strchr 		:%s\n", ft_strchr(ft_strdup(av[1]), 32));
-		printf("ft_line_get		:%s\n", ft_line_get(ft_strdup(av[1])));
-		printf("ft_line_rest		:%s\n", ft_line_rest(ft_strdup(av[1])));*/
 		fd = open(av[1], O_RDONLY);
 		if (fd < 0)
 			printf("can't open the folder %s\n", av[1]);
-		//printf("ft_strchr 		:%s\n", ft_strchr(ft_strdup(av[1]), 32));
-		while (read(fd, tab, BUFF_SIZE))
-		{
-			if (!(ft_strchr(tab, '\n')))
-			{
-				//tab = ;
-				write(1, ft_line_get(tab), ft_strlen(tab));
-				printf("pas ligne\n");
-			}
-			else
-			{
-				// ft_line_get(ft_strdup(tab));
-				// write(1, tab, ft_strlen(tab));
-				printf("ligne\n");
-			}
-			//write(1, tab, BUFF_SIZE);
-			//printf("ft_line_len		:%d\n", ft_line_len(tab));
-			i = 1;
-			while (++i < BUFF_SIZE)
-				tab[i] = '\0';
-		}
+		read(fd, tab, BUFF_SIZE);
+		get_next_line(fd, &tab);
 		close(fd);
 	}
 	else 
