@@ -19,6 +19,6 @@
 
 # define BUFF_SIZE 9999
 
-int				get_next_line(int const fd, char **line);
+int	get_next_line(int const fd, char **line);
 
 #endif
