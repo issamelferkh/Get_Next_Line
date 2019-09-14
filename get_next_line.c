@@ -6,7 +6,7 @@
 /*   By: iel-ferk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 20:11:45 by iel-ferk          #+#    #+#             */
-/*   Updated: 2019/04/20 14:56:21 by iel-ferk         ###   ########.fr       */
+/*   Updated: 2019/09/15 00:37:38 by iel-ferk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int						get_next_line(int const fd, char **line)
 {
 	char				*tmp;
 	char				buff[BUFF_SIZE + 1];
-	static	char		*tab[4867];
+	static	char		*tab[4866];
 	int					r;
 
 	if (fd < 0 || BUFF_SIZE < 1 || !line || read(fd, buff, 0) < 0)

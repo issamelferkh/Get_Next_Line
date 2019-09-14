@@ -6,7 +6,7 @@
 /*   By: iel-ferk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:23:33 by iel-ferk          #+#    #+#             */
-/*   Updated: 2019/04/21 18:27:29 by iel-ferk         ###   ########.fr       */
+/*   Updated: 2019/09/15 00:38:14 by iel-ferk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	main(int ac, char **av)
 		printf("%s\n",line );
 		free(line);
 	}
-	free(line);		
+	free(line); //for free last line
 	return (0);
 }
