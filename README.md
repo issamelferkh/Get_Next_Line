@@ -1,15 +1,16 @@
 # Get_Next_Line
 This project consists of coding a function to read the contents of a file line by line.
 
-## Goals:
-- To succeed get_next_line with a single static variable.
-- To be able to manage multiple file descriptor
-- Bufferisation
+## Objectives
+- Filedescriptors 
+- Bufferisation 
+- Parsing basique 
 
-## Skills:
-- Algorithms & AI
-- Imperative programming
-- Rigor
+## Skills
+- Imperative programming 
+- Rigor 
+- Algorithms & AI 
+
 
 ### function prototype:
 ```
